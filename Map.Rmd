@@ -36,34 +36,6 @@ shinyApp(ui, server)
 https://geocompr.robinlovelace.net/adv-map.html
 
 
-```{r}
-
-library(spData)   # loads the world dataset 
-library(rjson)
-
-spdata::world()
-
-world <- world
-
-
-
-ui = fluidPage(
-  sliderInput(inputId = "life", "Life expectancy", 49, 84, value = 80),
-      leafletOutput(outputId = "map")
-  )
-server = function(input, output) {
-  output$map = renderLeaflet({
-    leaflet() %>% 
-      # addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
-      addPolygons(data = world[world$lifeExp < input$life, ])})
-}
-shinyApp(ui, server)
-
-
-
-```
-
-
 # Shapefile
 ```{r}
 states_code_list <- state.abb
@@ -79,7 +51,10 @@ county_shapes <- counties(state = states_code_list, cb = T)%>%
 ```{r}
 covid_daily_county_nyt <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
 
-covid_shapes <- left_join(covid_daily_county_nyt, county_shapes, by = c("fips" = "GEOID")) 
+covid_shapes <- left_join(covid_daily_county_nyt, county_shapes, by = c("fips" = "GEOID")) %>%
+    mutate(lat = unlist(map(.$centroid,2)),
+           long = unlist(map(.$centroid,1))) %>% 
+  as.data.frame()
 
 yesterday <- covid_shapes %>% 
   filter(date == "2022-03-19") %>%
@@ -93,12 +68,17 @@ test map for today
 ```{r}
 
 leaflet() %>% 
+  setView(lng = -74.0060, lat = 40.7128, zoom = 50) %>% 
   addTiles() %>% 
-  #addProviderTiles(providers$CartoDB.Positron) %>%
-  addPolygons(data = county_shapes) %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  addPolygons(data = county_shapes,
+              fill = F,
+              color = "black",
+              weight = 1) %>% 
   addCircles(
     lng = yesterday$long, lat = yesterday$lat, 
-    radius = yesterday$cases/1000
+    radius = yesterday$cases/10,
+    stroke = F
   )
 
 
@@ -112,15 +92,28 @@ leaflet() %>%
 
 
 ui = fluidPage(
-  sliderInput(inputId = "date", "Date", min = as.Date("2020-01-21"), max = as.Date(covid_daily_county_nyt$date[length(covid_daily_county_nyt$date)]),
-              value = as.Date(covid_daily_county_nyt$date[length(covid_daily_county_nyt$date)])),
+  sliderInput(inputId = "date",
+              label = "Dates",
+              min = as.Date("2020-01-21"), 
+              max = as.Date(covid_daily_county_nyt$date[length(covid_daily_county_nyt$date)]),
+              value = as.Date(covid_daily_county_nyt$date[length(covid_daily_county_nyt$date)]),
+              timeFormat="%Y-%m-%d"),
       leafletOutput(outputId = "map")
   )
 server = function(input, output) {
   output$map = renderLeaflet({
+    
+    today <- covid_shapes %>% filter(date == input$date)
+    
     leaflet() %>% 
-      # addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
-      addPolygons(data = world[world$lifeExp < input$life, ])})
+      addTiles() %>% 
+      addProviderTiles(providers$CartoDB.Positron) %>%
+      addPolygons(data = county_shapes) %>% 
+      addCircles(
+        lng = today$long, lat = today$lat, 
+        radius = today$cases/10
+      )
+    })
 }
 shinyApp(ui, server)
 
