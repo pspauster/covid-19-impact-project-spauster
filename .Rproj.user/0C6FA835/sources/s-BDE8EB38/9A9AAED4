@@ -1,0 +1,32 @@
+{
+    "id": "9A9AAED4",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1647815767092.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "expression": "johns_hopkins",
+        "caption": "johns_hopkins",
+        "totalObservations": 284,
+        "displayedObservations": 284,
+        "variables": 792,
+        "cacheKey": "4046AD2D",
+        "object": "johns_hopkins",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=johns_hopkins&cache_key=4046AD2D&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 19703454534205555,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1647815767092,
+    "read_only": false,
+    "read_only_alternatives": []
+}

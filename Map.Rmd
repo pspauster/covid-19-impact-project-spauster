@@ -68,7 +68,7 @@ test map for today
 ```{r}
 
 leaflet() %>% 
-  setView(lng = -74.0060, lat = 40.7128, zoom = 50) %>% 
+  setView(lng = -74.0060, lat = 40.7128, zoom = 8) %>% 
   addTiles() %>% 
   addProviderTiles(providers$CartoDB.Positron) %>%
   addPolygons(data = county_shapes,
@@ -78,7 +78,10 @@ leaflet() %>%
   addCircles(
     lng = yesterday$long, lat = yesterday$lat, 
     radius = yesterday$cases/10,
-    stroke = F
+    stroke = F,
+    label = sprintf(
+      "<strong>%s County, %s</strong><br/>%g cases<br/>%g deaths",
+      yesterday$county, yesterday$state,  yesterday$cases,  yesterday$deaths) %>% lapply(htmltools::HTML)
   )
 
 
@@ -97,7 +100,10 @@ ui = fluidPage(
               min = as.Date("2020-01-21"), 
               max = as.Date(covid_daily_county_nyt$date[length(covid_daily_county_nyt$date)]),
               value = as.Date(covid_daily_county_nyt$date[length(covid_daily_county_nyt$date)]),
-              timeFormat="%Y-%m-%d"),
+              timeFormat="%Y-%m-%d",
+              width = "100%",
+              animate = animationOptions(interval = 10000, loop = FALSE)
+              ),
       leafletOutput(outputId = "map")
   )
 server = function(input, output) {
@@ -106,12 +112,21 @@ server = function(input, output) {
     today <- covid_shapes %>% filter(date == input$date)
     
     leaflet() %>% 
+      setView(lng = -74.0060, lat = 40.7128, zoom = 8) %>% 
       addTiles() %>% 
       addProviderTiles(providers$CartoDB.Positron) %>%
-      addPolygons(data = county_shapes) %>% 
+      addPolygons(data = county_shapes,
+                  fill = F,
+                  color = "black",
+                  weight = 1,
+                  opacity = 0.2) %>% 
       addCircles(
         lng = today$long, lat = today$lat, 
-        radius = today$cases/10
+        radius = today$cases/10,
+        stroke = F,
+        label = sprintf(
+          "<strong>%s County, %s</strong><br/>%g cases<br/>%g deaths",
+          today$county, today$state,  today$cases,  today$deaths) %>% lapply(htmltools::HTML)
       )
     })
 }

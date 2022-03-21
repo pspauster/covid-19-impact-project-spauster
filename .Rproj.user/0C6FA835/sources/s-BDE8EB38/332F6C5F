@@ -1,0 +1,32 @@
+{
+    "id": "332F6C5F",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1647816832694.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "expression": "covid_daily_county_nyt",
+        "caption": "covid_daily_county_nyt",
+        "totalObservations": 2323794,
+        "displayedObservations": 2323794,
+        "variables": 6,
+        "cacheKey": "17B51620",
+        "object": "covid_daily_county_nyt",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=covid_daily_county_nyt&cache_key=17B51620&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 4189020990314997106,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1647816832694,
+    "read_only": false,
+    "read_only_alternatives": []
+}

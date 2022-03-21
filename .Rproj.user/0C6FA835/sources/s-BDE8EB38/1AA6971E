@@ -1,0 +1,32 @@
+{
+    "id": "1AA6971E",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1647821530098.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "expression": "county_shapes",
+        "caption": "county_shapes",
+        "totalObservations": "3141",
+        "displayedObservations": "3141",
+        "variables": "11",
+        "cacheKey": "42499325",
+        "object": "county_shapes",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=county_shapes&cache_key=42499325&max_cols=50",
+        "preview": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2502040100608,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1647821530098,
+    "read_only": false,
+    "read_only_alternatives": []
+}

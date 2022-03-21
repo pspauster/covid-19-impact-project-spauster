@@ -1,0 +1,25 @@
+{
+    "id": "6D6A330F",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1647815587575.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "id": "d114d47cd04d4d74984b92c00fdb5079",
+        "name": "mydata",
+        "title": "mydata"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 30118299256684642,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1647815587575,
+    "read_only": false,
+    "read_only_alternatives": []
+}
